@@ -7,9 +7,18 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
 
+from finance.database import db_session
+from finance.models import User
+
 bp = Blueprint('transaction', __name__, url_prefix='/')
 
 
 @bp.route('/')
 def index():
-    return render_template('transaction/index.html')
+    # u = User('admin2', 'admin2@localhost')
+    # db_session.add(u)
+    # db_session.commit()
+
+    data = User.query.first().name
+    data = User.query.first().email
+    return render_template('transaction/index.html', data=data)

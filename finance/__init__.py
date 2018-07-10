@@ -24,8 +24,13 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import db
-    db.init_app(app)
+    from . import database
+    database.init_app(app)
+
+    from finance.database import db_session
+    @app.teardown_appcontext
+    def shutdown_session(exception=None):
+        db_session.remove()
 
     from . import transaction
     app.register_blueprint(transaction.bp)
