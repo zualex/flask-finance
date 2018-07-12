@@ -5,21 +5,19 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db
-
-from .database import db_session
-from .models import User
+from app.models import User
+from app import db
 
 bp = Blueprint('transaction', __name__, url_prefix='/')
 
 
 @bp.route('/')
 def index():
-    # u = User('admin2', 'admin2@localhost')
-    # db_session.add(u)
-    # db_session.commit()
+    # u = User(username='susan2', email='susan2@example.com')
+    # db.session.add(u)
+    # db.session.commit()
 
-    # data = User.query.first().name
+    # data = User.query.first().username
     # data = User.query.first().email
     data = '123'
     return render_template('transaction/index.html', data=data)
