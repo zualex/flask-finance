@@ -1,30 +1,14 @@
-import os
-
 from flask import Flask
+from config import Config
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
+app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-
-# create and configure the app
-app = Flask(__name__, instance_relative_config=True)
-app.config.from_mapping(
-    SECRET_KEY='dev',
-    DATABASE=os.path.join(app.instance_path, 'finance.sqlite'),
-)
-
-
-# ensure the instance folder exists
-try:
-    os.makedirs(app.instance_path)
-except OSError:
-    pass
-
-from . import database
-database.init_app(app)
-
-from .database import db_session
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    db_session.remove()
+from app import models
 
 from . import transaction
 app.register_blueprint(transaction.bp)
