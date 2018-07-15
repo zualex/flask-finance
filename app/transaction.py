@@ -5,7 +5,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app.models import User
+# from app.models import User
 from app import db
 
 bp = Blueprint('transaction', __name__, url_prefix='/')
