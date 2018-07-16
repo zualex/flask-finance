@@ -10,7 +10,11 @@
     $env:FLASK_ENV = "development"
     flask run
     flask db init
-    flask db migrate -m "users table"
+    flask db migrate -m "tables"
     flask db upgrade
     flask db downgrade
     flask shell
+
+## Custom commands
+
+    flask seed
