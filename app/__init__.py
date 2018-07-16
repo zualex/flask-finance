@@ -18,4 +18,7 @@ def create_app(config_class=Config):
     from . import transaction
     app.register_blueprint(transaction.bp)
 
+    from . import command
+    command.init_app(app)
+
     return app
