@@ -2,6 +2,7 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 from app.models import Currency, Category, Account
+from app.seeds.currencies import Currencies
 from app import db
 
 
@@ -12,6 +13,14 @@ def init_app(app):
 @click.command('seed')
 @with_appcontext
 def seed_command():
-    click.echo('Test message')
+    Currency.query.delete()
+    click.echo('Remove currencies')
+
+    for data in Currencies.data:
+        obj = Currency(**data)
+        db.session.add(obj)
+        db.session.commit()
+        click.echo('Currency ' + obj.symbol + ' created')
+
 
 
