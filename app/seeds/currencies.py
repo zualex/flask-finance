@@ -3,6 +3,5 @@ class Currencies(object):
         {
             'id': 1,
             'symbol': 'RUB',
-            'name': 'Рубль',
         }
     ]
