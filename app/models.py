@@ -3,9 +3,9 @@ from app import db
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    slug = db.Column(db.String(64), index=True, unique=True)
     name = db.Column(db.String(64), index=True, unique=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    sort = db.Column(db.Integer)
 
     def __repr__(self):
         return '<Category {}>'.format(self.name)
@@ -13,7 +13,7 @@ class Category(db.Model):
 class Currency(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     symbol = db.Column(db.String(6), index=True, unique=True)
-    name = db.Column(db.String(64), index=True, unique=True)
+    sort = db.Column(db.Integer)
 
     def __repr__(self):
         return '<Currency {}>'.format(self.name)
@@ -26,6 +26,7 @@ class Account(db.Model):
     is_active = db.Column(db.Boolean())
     is_ignore_balance = db.Column(db.Boolean())
     currency_id = db.Column(db.Integer, db.ForeignKey('currency.id'))
+    sort = db.Column(db.Integer)
 
     def __repr__(self):
         return '<Account {}>'.format(self.username)
